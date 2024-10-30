@@ -21,5 +21,9 @@
     
     <a href="${pageContext.request.contextPath}/canciones/formulario/editar/${cancion.id}">Actualizar Canción</a>
     
+     <form action="/canciones/eliminar/${cancion.id}" method="get">
+        <button type="submit">Eliminar Canción</button>
+    </form>
+    
 </body>
 </html>
