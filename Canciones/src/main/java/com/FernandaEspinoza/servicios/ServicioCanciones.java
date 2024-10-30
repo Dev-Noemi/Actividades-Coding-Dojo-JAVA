@@ -11,17 +11,23 @@ import java.util.List;
 public class ServicioCanciones {
     
     @Autowired
-    private RepositorioCanciones repositorio;
+    private RepositorioCanciones repositorioCanciones;
 
     public List<Cancion> obtenerTodasLasCanciones() {
-        return repositorio.findAll();
+        return repositorioCanciones.findAll();
     }
 
-    public Cancion obtenerCancionPorId(Long id) {
-        return repositorio.findById(id).orElse(null);
+    public Cancion agregarCancion(Cancion cancion) {
+        return repositorioCanciones.save(cancion);
     }
     
-    public Cancion agregarCancion(Cancion cancion) {
-        return repositorio.save(cancion);
+    public Cancion obtenerCancionPorId(Long id) {
+        return repositorioCanciones.findById(id).orElse(null);
     }
+    
+
+    public Cancion actualizaCancion(Cancion cancion) {
+        return repositorioCanciones.save(cancion);
+    }
+    
 }

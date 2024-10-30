@@ -18,5 +18,8 @@
         <p>El libro no se encuentra en nuestra lista.</p>
     </c:if>
     <a href="/canciones">Volver a lista de canciones</a>
+    
+    <a href="${pageContext.request.contextPath}/canciones/formulario/editar/${cancion.id}">Actualizar Canción</a>
+    
 </body>
 </html>
