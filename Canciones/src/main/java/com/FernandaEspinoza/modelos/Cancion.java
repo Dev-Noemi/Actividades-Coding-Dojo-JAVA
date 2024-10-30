@@ -1,96 +1,132 @@
 package com.FernandaEspinoza.modelos;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "canciones")
 public class Cancion {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String titulo;
-    private String artista;
-    private String album;
-    private String genero;
-    private String idioma;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "fecha_creacion", updatable = false)
-    private LocalDateTime fechaCreacion;
+	@NotBlank(message = "El título es obligatorio")
+	@Size(min = 5, message = "El título debe tener al menos 5 caracteres")
+	private String titulo;
 
-    @Column(name = "fecha_actualizacion")
-    private LocalDateTime fechaActualizacion;
+	@NotBlank(message = "El artista es obligatorio")
+	@Size(min = 3, message = "El artista debe tener al menos 3 caracteres")
+	private String artista;
 
-   
-    public Cancion() {}
+	@NotBlank(message = "El álbum es obligatorio")
+	@Size(min = 3, message = "El álbum debe tener al menos 3 caracteres")
+	private String album;
 
-    public Long getId() {
-        return id;
-    }
+	@NotBlank(message = "El género es obligatorio")
+	@Size(min = 3, message = "El género debe tener al menos 3 caracteres")
+	private String genero;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@NotBlank(message = "El idioma es obligatorio")
+	@Size(min = 3, message = "El idioma debe tener al menos 3 caracteres")
+	private String idioma;
 
-    public String getTitulo() {
-        return titulo;
-    }
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_creacion")
+	private Date fechaCreacion;
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_actualizacion")
+	private Date fechaActualizacion;
 
-    public String getArtista() {
-        return artista;
-    }
+	public Cancion() {
+	}
 
-    public void setArtista(String artista) {
-        this.artista = artista;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getAlbum() {
-        return album;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setAlbum(String album) {
-        this.album = album;
-    }
+	public String getTitulo() {
+		return titulo;
+	}
 
-    public String getGenero() {
-        return genero;
-    }
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
+	public String getArtista() {
+		return artista;
+	}
 
-    public String getIdioma() {
-        return idioma;
-    }
+	public void setArtista(String artista) {
+		this.artista = artista;
+	}
 
-    public void setIdioma(String idioma) {
-        this.idioma = idioma;
-    }
+	public String getAlbum() {
+		return album;
+	}
 
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
-    }
+	public void setAlbum(String album) {
+		this.album = album;
+	}
 
-    public LocalDateTime getFechaActualizacion() {
-        return fechaActualizacion;
-    }
+	public String getGenero() {
+		return genero;
+	}
 
-    
-    
-    @PrePersist
-    protected void onCreate() {
-        fechaCreacion = LocalDateTime.now();
-        fechaActualizacion = LocalDateTime.now();
-    }
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
 
-    @PreUpdate
-    protected void onUpdate() {
-        fechaActualizacion = LocalDateTime.now();
-    }
+	public String getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Date getFechaActualizacion() {
+		return fechaActualizacion;
+	}
+
+	public void setFechaActualizacion(Date fechaActualizacion) {
+		this.fechaActualizacion = fechaActualizacion;
+	}
+
+	@PrePersist
+	protected void onCreate() {
+		this.fechaCreacion = new Date();
+		this.fechaActualizacion = this.fechaCreacion;
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		this.fechaActualizacion = new Date();
+	}
+
 }
